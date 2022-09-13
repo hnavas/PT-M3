@@ -138,7 +138,7 @@ function problemC () {
   //   }
   // );
 
-  // promise version
+  // promise version 1
   filenames.reduce((p, file) => {
     return p.then((stanza) => {
       if(stanza) blue(stanza);
@@ -149,7 +149,11 @@ function problemC () {
     blue(stanza);
     console.log('done');
   })
-
+  // promise version 2 - Solución simple con Bluebird:
+  // Promise.each(filesnames, function(file){
+  //   return promisifiedReadFile(file).then(stz => blue(stz))
+  // })
+  // .then(() => console.log('done'))
 }
 
 function problemD () {
@@ -212,10 +216,10 @@ function problemE () {
   var fs = require('fs');
   function promisifiedWriteFile (filename, str) {
     // tu código aquí
-    return new Promise(function(resolve, reject){
-      fs.writeFile(filename, (err, str) => {
-        if(err) reject(err);
-        else resolve('Se escribio bien');
+    return new Promise((resolve, reject) => {
+      fs.writeFile(filename, string, 'utf-8', function (err, data) {
+        if(err) return reject(err);
+        resolve(data);
       })
     })
   }
